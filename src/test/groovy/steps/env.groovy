@@ -1,9 +1,6 @@
 package steps
 
-/**
- * Created by guru on 21/11/17.
- */
-
+import cucumber.api.Scenario
 import geb.Browser
 import geb.binding.BindingUpdater
 
@@ -19,4 +16,5 @@ Before() {
 
 After() {
     bindingUpdater.remove()
+    // we can write code to clean up the cart here.
 }

@@ -13,12 +13,13 @@ environments {
 //        FirefoxBinary binary = new FirefoxBinary(new File("/Applications/Firefox.app/Contents/MacOS/"));
 //        FirefoxProfile profile = new FirefoxProfile();
 //        driver = { new FirefoxDriver(binary, profile) }
+        //System.setProperty("webdriver.gecko.driver","/Users/guru/Documents/Projects/TestAutomation/Cuc_Sel_Ebay_Poc/src/test/resources/geckodriver");
         driver = { new FirefoxDriver() }
     }
 
     chrome {
         println "gebconfig chrome"
-        System.setProperty("webdriver.chrome.driver", "/Users/guru/Documents/Projects/Freelancing/Proposals/Cucu_Sel_Gro/CucumberSel/src/test/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "/Users/guru/Documents/Projects/TestAutomation/Cuc_Sel_Ebay_Poc/src/test/resources/chromedriver");
         driver = { new ChromeDriver() }
     }
 
