@@ -1,0 +1,200 @@
+apply plugin: "groovy"
+
+repositories {
+    jcenter()
+}
+
+ext {
+    // The drivers we want to use
+    drivers = [ "firefox", "chrome"]
+}
+def drivers = ["firefox", "chrome"]
+dependencies {
+    testCompile "org.codehaus.groovy:groovy-all:2.4.3"
+
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:2.53.0"
+    testCompile "org.seleniumhq.selenium:selenium-api:2.53.0"
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.0'
+    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:2.32"
+    testCompile "org.gebish:geb-core:2.0"
+    testCompile "info.cukes:cucumber-groovy:1.2.3"
+    testCompile "info.cukes:gherkin:2.12.2"
+    // https://mvnrepository.com/artifact/io.jdev.geb/geb-cucumber
+    compile group: 'io.jdev.geb', name: 'geb-cucumber', version: '0.3'
+    // https://mvnrepository.com/artifact/org.codehaus.geb/geb-junit4
+    compile group: 'org.codehaus.geb', name: 'geb-junit4', version: '0.7.2'
+    // https://mvnrepository.com/artifact/net.masterthought/maven-cucumber-reporting
+    compile group: 'net.masterthought', name: 'maven-cucumber-reporting', version: '3.10.0'
+
+}
+
+configurations {
+    println "inside configurations"
+    cucumberRuntime { extendsFrom testRuntime }
+}
+
+
+
+task cucumber {
+    //dependsOn testClasses
+    println "inside cucumber task"
+    doLast {
+        javaexec {
+            systemProperties += ["geb.env" : System.getProperty('geb.env')]
+//            System.setProperty("geb.env", System.getProperty('geb.env'))
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+//                    '--tags', '~@wip',
+                    '--glue', 'src/test/groovy/steps', 'classpath:io.jdev.geb.cucumber.steps.groovy.en',
+                    'src/test/groovy/features'
+            ]
+        }
+    }
+}
+
+
+drivers.each { driver ->
+    task "${driver}Test"(type: Test) {
+        group JavaBasePlugin.VERIFICATION_GROUP
+
+        outputs.upToDateWhen { false }  // Always run tests
+        systemProperties +=
+                ["geb.build.reportsDir" : reporting.file("geb/$name"),
+                 "geb.env" : driver
+                ]
+//        systemProperty "geb.build.reportsDir", reporting.file("geb/$name")
+//        systemProperty "geb.env", driver
+        println "geb.env" + driver
+    }
+}
+
+test {
+    println "inside test......"
+    dependsOn drivers.collect { tasks["${it}Test"] }
+    enabled = false
+}
+
+tasks.withType(Test) {
+    maxHeapSize = "1g"
+    jvmArgs '-XX:MaxMetaspaceSize=128m'
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+tasks.withType(GroovyCompile) {
+    groovyOptions.forkOptions.memoryMaximumSize = '256m'
+}
+
+/*
+
+plugins{
+    id "com.github.samueltbrown.cucumber" version "0.9"
+    id "com.energizedwork.idea-project-components" version "1.2"
+    id "com.energizedwork.idea-base" version "1.2"
+    id "com.energizedwork.webdriver-binaries" version "1.0"
+}
+
+ext {
+    groovyVersion = '2.4.12'
+    gebVersion = '2.0'
+    seleniumVersion = '3.6.0'
+    cucumberJvmVersion = '1.2.2'
+    chromeDriverVersion = '2.32'
+    geckoDriverVersion = '0.18.0'
+}
+
+apply plugin: "java"
+apply plugin: "groovy"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testCompile "org.codehaus.groovy:groovy-all:2.4.3"
+//    cucumberRuntime group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '2.23.0'
+    cucumberRuntime "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+    cucumberRuntime "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    testCompile "io.jdev.geb:geb-cucumber:0.3"
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.0'
+    testCompile "org.seleniumhq.selenium:selenium-api:2.53.0"
+    testCompile "org.gebish:geb-core:1.1.1"
+    testCompile "info.cukes:cucumber-groovy:1.2.3"
+    cucumberRuntime "info.cukes:cucumber-groovy:1.2.3"
+    testCompile "info.cukes:gherkin:2.12.2"
+    compile group: 'com.github.samueltbrown', name: 'gradle-cucumber-plugin', version: '0.9'
+    // https://mvnrepository.com/artifact/info.cukes/cucumber-junit
+    testCompile group: 'info.cukes', name: 'cucumber-junit', version: '1.2.3'
+// https://mvnrepository.com/artifact/info.cukes/cucumber-core
+    compile group: 'info.cukes', name: 'cucumber-core', version: '1.2.3'
+// https://mvnrepository.com/artifact/info.cukes/cucumber-java
+//    compile group: 'info.cukes', name: 'cucumber-java', version: '1.2.3'
+
+
+}
+webdriverBinaries {
+    chromedriver chromeDriverVersion
+    geckodriver geckoDriverVersion
+}
+
+cucumber {
+    formats = ['pretty','json:build/cucumber.json','junit:build/cucumber.xml']
+    glueDirs = ['src/test/groovy/steps',
+                'src/test/groovy/pages']
+    featureDirs = ['src/test/groovy/features']
+//    tags = ['@billing', '@important']
+    monochrome = false
+    strict = false
+    dryRun = false
+    ignoreFailures = false
+    */
+/*jvmOptions.systemProperties([
+            "geb.env": System.getProperty("geb.env")
+    ])*//*
+
+
+
+    */
+/*jvmOptions {
+        //maxHeapSize = '512m'
+        //environment 'env'
+    }*//*
+
+
+}
+
+configureChromeDriverBinary {
+    addBinaryAware { path ->
+        tasks.cucumber.jvmOptions.systemProperties("webdriver.chrome.driver": path)
+    }
+}
+
+configureGeckoDriverBinary {
+    addBinaryAware { path ->
+        tasks.cucumber.jvmOptions.systemProperties("webdriver.gecko.driver": path)
+    }
+}
+
+tasks.cucumber {
+    dependsOn configureChromeDriverBinary, configureGeckoDriverBinary
+    jvmOptions.systemProperties([
+            "geb.cucumber.step.packages": "steps",
+            "geb.env"                   : System.getProperty("geb.env")
+    ])
+}
+task chromeTest(type: Test) {
+//        systemProperty "geb.build.reportsDir", reporting.file("geb/$name")
+        systemProperty "geb.env", "chrome"
+    }
+
+
+task hello {
+    System.setProperty('geb.env', 'chrome')
+}
+
+tasks.withType(GroovyCompile) {
+    groovyOptions.forkOptions.memoryMaximumSize = '256m'
+}*/
