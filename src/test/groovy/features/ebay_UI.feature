@@ -9,6 +9,6 @@ Feature: Ebay commercial website search and add products
     Then product is added successfully
 
     Examples:
-      | searchItem                      |
-      | "magic mouse apple"             |
-      | "fitbit blaze screen protector" |
+      | searchItem                                              |
+      | "magic mouse apple rechargeable Battery"                |
+#      | "fitbit blaze screen protector clear tempered glass hd" |
