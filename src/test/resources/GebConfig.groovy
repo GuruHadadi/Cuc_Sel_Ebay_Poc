@@ -1,10 +1,14 @@
+import org.openqa.selenium.Platform
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxBinary
 import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.firefox.FirefoxProfile
+import org.openqa.selenium.remote.DesiredCapabilities
+import org.openqa.selenium.remote.RemoteWebDriver
 
-driver = { new FirefoxDriver() }
 
+public static final String USERNAME = "guruhadadi1";
+public static final String AUTOMATE_KEY = "CREdthD9fPLQZUp11qyr";
+public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
 environments {
 
     firefox {
@@ -14,7 +18,10 @@ environments {
 //        FirefoxProfile profile = new FirefoxProfile();
 //        driver = { new FirefoxDriver(binary, profile) }
         //System.setProperty("webdriver.gecko.driver","/Users/guru/Documents/Projects/TestAutomation/Cuc_Sel_Ebay_Poc/src/test/resources/geckodriver");
-        driver = { new FirefoxDriver() }
+        DesiredCapabilities caps = DesiredCapabilities.firefox();
+        caps.setCapability("platform", Platform.XP);
+        driver = new RemoteWebDriver(new URL(URL), caps);
+//        driver = { new FirefoxDriver() }
     }
 
     chrome {

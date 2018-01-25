@@ -1,3 +1,4 @@
+//apply plugin: 'java'
 apply plugin: "groovy"
 
 repositories {
@@ -25,6 +26,16 @@ dependencies {
     compile group: 'org.codehaus.geb', name: 'geb-junit4', version: '0.7.2'
     // https://mvnrepository.com/artifact/net.masterthought/maven-cucumber-reporting
     compile group: 'net.masterthought', name: 'maven-cucumber-reporting', version: '3.10.0'
+    // https://mvnrepository.com/artifact/junit/junit
+    testCompile group: 'junit', name: 'junit', version: '4.4'
+    // https://mvnrepository.com/artifact/org.testng/testng
+    testCompile group: 'org.testng', name: 'testng', version: '6.10'
+    // https://mvnrepository.com/artifact/com.beust/jcommander
+    compile group: 'com.beust', name: 'jcommander', version: '1.7'
+
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+
 
 }
 
@@ -36,8 +47,10 @@ configurations {
 
 
 task cucumber {
+
     //dependsOn testClasses
     println "inside cucumber task"
+
     doLast {
         javaexec {
             systemProperties += ["geb.env" : System.getProperty('geb.env')]

@@ -1,11 +1,9 @@
 package steps
 
-import cucumber.api.PendingException
 import pages.EBayCartPage
 import pages.EBayMainPage
 import pages.EBayProductPage
 import pages.EBaySearchResultsPage
-import static cucumber.api.groovy.Hooks.After
 import static cucumber.api.groovy.EN.*
 
 /**

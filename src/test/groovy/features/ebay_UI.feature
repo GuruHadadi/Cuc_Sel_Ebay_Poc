@@ -11,4 +11,4 @@ Feature: Ebay commercial website search and add products
     Examples:
       | searchItem                      |
       | "magic mouse apple"             |
-#      | "fitbit blaze screen protector" |
+      | "fitbit blaze screen protector" |
