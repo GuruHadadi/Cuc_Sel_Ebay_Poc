@@ -9,14 +9,19 @@ import org.openqa.selenium.remote.RemoteWebDriver
 def final String USERNAME = "guruhadadi1";
 def final String AUTOMATE_KEY = "CREdthD9fPLQZUp11qyr";
 def final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+
 environments {
 
-    firefox {
-        println "gebconfig firefox"
+    local_firefox {
+        println "gebconfig local firefox"
+        driver = { new FirefoxDriver() }
+    }
+
+    cloud_firefox {
+        println "gebconfig browserstack firefox"
         DesiredCapabilities caps = DesiredCapabilities.firefox();
         caps.setCapability("platform", Platform.XP);
         driver = {new RemoteWebDriver(new URL(URL), caps)}
-//        driver = { new FirefoxDriver() }
     }
 
     chrome {

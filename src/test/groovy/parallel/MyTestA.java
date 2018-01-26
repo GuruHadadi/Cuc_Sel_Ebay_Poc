@@ -5,6 +5,7 @@ package parallel;
  */
 import java.net.MalformedURLException;
 
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
