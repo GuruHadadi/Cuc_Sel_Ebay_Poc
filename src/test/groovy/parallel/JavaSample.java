@@ -16,6 +16,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.URL;
 
 public class JavaSample {
+/*
 
     public static final String USERNAME = "guruhadadi1";
     public static final String AUTOMATE_KEY = "CREdthD9fPLQZUp11qyr";
@@ -44,6 +45,7 @@ public class JavaSample {
         driver.quit();
     }
 
+*/
 
     /*public static void main(String[] args) throws Exception {
 

@@ -15,8 +15,8 @@ public class Browserz {
     private static  final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
 
     public static RemoteWebDriver getDriver(String browser) throws MalformedURLException {
-        return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), getBrowserCapabilities(browser));
-//        return new RemoteWebDriver(new URL(URL), getBrowserCapabilities(browser));
+//        return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), getBrowserCapabilities(browser));
+        return new RemoteWebDriver(new URL(URL), getBrowserCapabilities(browser));
     }
 
     private static DesiredCapabilities getBrowserCapabilities(String browserType) {

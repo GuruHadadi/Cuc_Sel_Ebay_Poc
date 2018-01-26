@@ -6,6 +6,7 @@ package parallel;
 import java.net.MalformedURLException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -16,29 +17,26 @@ import org.testng.annotations.Test;
 public class MyTestB {
 
     public static RemoteWebDriver driver;
-    public static String appURL = "http://www.google.com";
+    public static String appURL = "https://www.ebay.com.au/";
 
     @BeforeClass
     @Parameters({ "browser" })
     public void setUp(String browser) throws MalformedURLException {
         System.out.println("*******************");
+        System.out.println("Test with browser "+browser);
         driver = Browserz.getDriver(browser);
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
     }
 
     @Test
-    public void testGooglePageTitleInChrome() {
-        driver.navigate().to("http://www.google.com");
-        String strPageTitle = driver.getTitle();
-        Assert.assertTrue(strPageTitle.equalsIgnoreCase("Google"), "Page title doesn't match");
-    }
-
-    @Test
-    public void testSearchGoogle() {
-        System.out.println("Opening Google..");
+    public void testEbayHomeSearch() {
+        System.out.println("Opening Ebay");
         driver.navigate().to(appURL);
-        driver.findElement(By.name("q")).sendKeys("Selenium Easy Grid Tutorials");
-        driver.findElement(By.name("btnG")).click();
+        driver.findElement(By.id("gh-ac")).sendKeys("magic mouse apple rechargeable Battery");
+        driver.findElement(By.id("gh-btn")).click();
+        driver.findElements(By.id("ResultSetItems")).get(0).findElements(By.cssSelector("li a")).get(0).click();
+        WebElement ele = driver.findElement(By.id("isCartBtn_btn"));
+        Assert.assertTrue(ele.isDisplayed(), "Check if add to cart button is displayed");
     }
 
     @AfterClass

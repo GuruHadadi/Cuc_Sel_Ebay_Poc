@@ -17,7 +17,7 @@ import java.net.URL;
  * Created by guru on 24/01/18.
  */
 public class TempJavaClassForGrid {
-
+/*
     private WebDriver driver;
 
     @Before
@@ -39,7 +39,7 @@ public class TempJavaClassForGrid {
         String title = driver.getTitle();
         System.out.println("Page title is: " + title);
 
-        /*WebElement element = driver.findElement(By.name("q"));
+        *//*WebElement element = driver.findElement(By.name("q"));
         element.sendKeys("TestingBot");
         element.submit();
         driver = new Augmenter().augment(driver);
@@ -48,11 +48,11 @@ public class TempJavaClassForGrid {
             FileUtils.copyFile(srcFile, new File("Screenshot.png"));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }*//*
     }
 
     @After
     public void tearDown() throws Exception {
         driver.quit();
-    }
+    }*/
 }

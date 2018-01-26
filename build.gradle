@@ -61,7 +61,7 @@ task cucumber {
                     '--plugin', 'pretty',
 //                    '--tags', '~@wip',
                     '--glue', 'src/test/groovy/steps', 'classpath:io.jdev.geb.cucumber.steps.groovy.en',
-                    'src/test/groovy/features'
+                    'src/test/groovy'
             ]
         }
     }
@@ -69,7 +69,7 @@ task cucumber {
 
 
 //  testng example to run tests in parallel
-task runTests(type: JavaExec, dependsOn: 'classes') {
+task runParallelTests(type: JavaExec, dependsOn: 'classes') {
     main = 'org.testng.TestNG'
     classpath = files("./src/test/resources",
             project.sourceSets.main.compileClasspath,
