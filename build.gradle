@@ -1,16 +1,10 @@
-//apply plugin: 'java'
 apply plugin: "groovy"
-//apply plugin: "geb-browserstack"
 
 repositories {
     jcenter()
 }
 
-ext {
-    // The drivers we want to use
-    drivers = [ "firefox", "chrome"]
-}
-def drivers = ["firefox", "chrome"]
+
 dependencies {
     testCompile "org.codehaus.groovy:groovy-all:2.4.3"
 
@@ -35,8 +29,6 @@ dependencies {
     compile group: 'com.beust', name: 'jcommander', version: '1.7'
 
     compile fileTree(dir: 'libs', include: '*.jar')
-
-
 
 }
 
@@ -79,8 +71,8 @@ task runParallelTests(type: JavaExec, dependsOn: 'classes') {
     args = ["-parallel",  "methods", "-threadcount", "1", "-d", "./build/test-output", "./testng.xml"]
 }
 
-
+/*
 tasks.withType(GroovyCompile) {
     groovyOptions.forkOptions.memoryMaximumSize = '256m'
-}
+}*/
 
