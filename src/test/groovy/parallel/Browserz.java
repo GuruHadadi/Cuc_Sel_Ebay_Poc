@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Browserz {
+    //  this is my browser stack credentials :)
     private static final String USERNAME = "guruhadadi1";
     private static  final String AUTOMATE_KEY = "CREdthD9fPLQZUp11qyr";
     private static  final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
